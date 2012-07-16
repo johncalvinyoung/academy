@@ -11,7 +11,6 @@ class WarTest < Test::Unit::TestCase
 	def test_deck
 		game1 = Game.new(["John","Caleb"])
 		assert_equal(52,game1.deck.number_of_cards)
-		#print("Deck creation is functional.\n")
 	end
 	def test_deal
 		game = Game.new(["John","Caleb"])
@@ -19,15 +18,13 @@ class WarTest < Test::Unit::TestCase
 		
 		assert_equal(52/game.players.size, game.players[0].number_of_cards)
 		assert true, game.players[0].hand != game.players[1].hand
-		#print("Deal is working correctly.\n")
 	end
 	
 	def test_play
 		player1 = Player.new("Doug")
-		player1.hand << Card.new(2, "diamond")
+		player1.add_cards("2D")
 		player1.play
 		assert_equal(0,player1.score)
-		#print("Play is functioning correctly.\n")
 	end
 
 	def test_force_lose
@@ -39,7 +36,6 @@ class WarTest < Test::Unit::TestCase
 		3.times do game.play_round end
 		assert_equal 4, game.players[0].score
 		assert_equal 0, game.players[1].score
-		#print("Game fails correctly when player runs out of cards in the middle of a war.\n")
 	end
 	
 	def test_draw_and_pop
@@ -53,7 +49,6 @@ class WarTest < Test::Unit::TestCase
 		card5 = game.players[0].hand[-1]
 		assert_equal(card5, card4)
 		assert_equal(card5, card1)
-		#print("shift and [0] are equivalent, as are shovel and [-1]\n")
 	end
 
 	def test_play_match
@@ -79,7 +74,6 @@ class WarTest < Test::Unit::TestCase
 
 		winner = game.scores.index(game.scores.max)
 		print( "Winner: ", game.players[winner].name, ". Rounds Played: ", game.rounds, "\n")
-		#print("Win conditions for 2 players working.\n")
 		end
 	end
 
@@ -105,7 +99,6 @@ class WarTest < Test::Unit::TestCase
 		winner = game.scores.index(game.scores.max)
 		print( "Winner: ", game.players[winner].name, ". Rounds Played: ", game.rounds, "\n")	
 		end
-		#print("Win conditions for 3+ players working.\n")
 	end
 
 end
