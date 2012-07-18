@@ -29,10 +29,8 @@ class WarTest < Test::Unit::TestCase
 
 	def test_force_lose
 		game = Game.new(["Ken","Caleb"])
-		game.players[0].hand << Card.new(8,"spades")
-		game.players[0].hand << Card.new(9,"diamonds")
-		game.players[0].hand << Card.new(10,"hearts")
-		game.players[1].hand << Card.new(8,"clubs")
+		game.players[0].add_cards("8S 9D 10H")
+		game.players[1].add_cards("8C")
 		3.times do game.play_round end
 		assert_equal 4, game.players[0].score
 		assert_equal 0, game.players[1].score

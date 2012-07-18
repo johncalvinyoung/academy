@@ -14,10 +14,14 @@ class Player
 	def score
 		@hand.size
 	end
-	def add_cards(input)
-	inputs = input.scan(/([1234567890jqkaJQKA]+)[-_]?([CDSHcdsh])/)
-	inputs.each do |c|
-		@hand << Card.new(c[0],c[1])
+	def add_cards(input)	
+	if input.is_a?(String) then cards = input.scan(/\b([2-9JQKA]|10)\w*[-_]*([CDSH])/i)
+	elsif input.is_a?(Card) then cards = [input]
+	else cards = input end
+		cards.each do |c|
+		if c.class == Card then hand << c else
+			hand << Card.new(c[0],c[1])
+		end
 	end
 
 	end
