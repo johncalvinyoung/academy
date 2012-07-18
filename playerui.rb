@@ -49,7 +49,7 @@ class GoFishCLIPlayerUI
      
      
      def received(source, number, rank)
-	  print("You received ", number, " ", rank, "s from ", source.name, "!\n")
+	  print("You received #{number} #{rank}s from #{source.name}!\n")
      end
      
      def go_fish(rank)

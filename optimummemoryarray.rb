@@ -45,8 +45,14 @@ class OptimumMemoryArray < Object
 	end
 
 	def concat other_array
-		other_array.each {|x| @data << x}
-		return @data
+		s = other_array.size
+		puts s
+		count = 0
+		while count < s do
+			@data << other_array.shift
+			count += 1
+		end
+		return OptimumMemoryArray.new.load(@data)
 	end
 
 	def size
@@ -63,5 +69,9 @@ class OptimumMemoryArray < Object
 
 	def last
 		@data.last
+	end
+	def load(array)
+		@data = array
+		return self
 	end
 end
