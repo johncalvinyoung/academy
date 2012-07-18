@@ -5,6 +5,7 @@ class GF_Player < Player
 		@name = name
 		@books = []
 		@mygame = game
+		@ui = GoFishRobotPlayerUI.new(self)
 	end
 
 	def opponents
@@ -23,6 +24,7 @@ class GF_Player < Player
 		next_player = self
 		opponent = command[0]
 		rank = command[1]
+		
 	  	cards = opponent.give(rank)
 	  	if cards != [] then
 			cards.each {|c| hand << c}

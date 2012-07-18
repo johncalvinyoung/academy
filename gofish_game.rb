@@ -45,6 +45,8 @@ class GoFishGame < Game
 
 	def start
 		@current_player = players.sample
+		@current_player.ui = GoFishCLIPlayerUI.new(@current_player)
+		@players[2].ui = GoFishCLIPlayerUI.new(@players[2])
 	end
 
 	def play
