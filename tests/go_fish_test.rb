@@ -11,7 +11,6 @@ require_relative '../playerui.rb'
 class GoFishTest < Test::Unit::TestCase
 	def setup
 		@game = GoFishGame.new(["Christian", "John", "Caleb", "Hope"])
-
 	end
 
 	def test_game_and_deal

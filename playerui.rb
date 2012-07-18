@@ -29,13 +29,11 @@ class GoFishPlayerUI
 	  end
      end
 
-
      def ask(who, to, what)
 	  print(who.name, " asked ", to.name, " for all their ", what, "s.\n")
-     end
-
+     
      def received(source, number, rank)
-	  print(@player.name, " received ", number, " ", rank, "s from ", source.name, "!\n")
+	  print("You received #{number} #{rank}s from #{source.name}!\n")
      end
 
      def go_fish(rank)

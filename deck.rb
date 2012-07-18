@@ -1,6 +1,5 @@
-require 'digest/md5'
 class Card
-	attr_accessor :rank, :suit
+	attr_reader :rank, :suit
 	def initialize(rank, suit)
 		@rank = rank.to_s.upcase
 		@suit = suit.upcase.slice(0..0)
