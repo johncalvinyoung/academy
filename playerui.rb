@@ -31,9 +31,10 @@ class GoFishPlayerUI
 
      def ask(who, to, what)
 	  print(who.name, " asked ", to.name, " for all their ", what, "s.\n")
+     end
      
      def received(source, number, rank)
-	  print("You received #{number} #{rank}s from #{source.name}!\n")
+	  print("#{@player.name} received #{number} #{rank}s from #{source.name}!\n")
      end
 
      def go_fish(rank)
@@ -62,7 +63,7 @@ end
 class GoFishCLIPlayerUI < GoFishPlayerUI
      
      def ask_for_input
-	  puts "Welcome, "+@player.name+"!\n"
+	  puts "Your turn now, #{@player.name}\n"
 	  puts "\nWho do you want to ask for which card?\n"
 	  puts "Example: \"ask Matt for 3's\n"
 	  #readout of current hand and opponents.
@@ -82,7 +83,7 @@ class GoFishCLIPlayerUI < GoFishPlayerUI
      end
      
      def received(source, number, rank)
-	  print("You received ", number, " ", rank, "s from ", source.name, "!\n")
+	  print("You received #{number} #{rank}s from #{source.name}!\n")
      end
      
      def go_fish(rank)
