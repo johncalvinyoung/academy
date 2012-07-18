@@ -7,6 +7,29 @@ class GoFishPlayerUI
      def ask_for_input
      end
 
+     def is_legal?(command)
+	  opponent = @player.mygame.players.find_index{|p| p.name == command[0][0]}
+	  if command[0].size != 2 then
+	       puts "Your command cannot be understood!\n"
+	       return false
+	  elsif opponent == nil then
+	       puts "That player does not exist\n"
+	       return false
+	  elsif @player.mygame.players[opponent].class == nil then
+	       puts "That player does not exist\n"
+	       return false
+	  elsif @player.mygame.players[opponent] == self then
+	       puts "You cannot ask yourself for cards!\n"
+	       return false
+	  elsif @player.hand.select{|c| c.rank == command[0][1]}.size == 0
+	       puts "You cannot ask for a rank which you do not possess!\n"
+	       return false
+	  else
+	       return true
+	  end
+     end
+
+
      def ask(who, to, what)
 	  print(who.name, " asked ", to.name, " for all their ", what, "s.\n")
      end
@@ -60,28 +83,6 @@ class GoFishCLIPlayerUI < GoFishPlayerUI
 	  end
      end
      
-     def is_legal?(command)
-	       opponent = @player.mygame.players.find_index{|p| p.name == command[0][0]}
-	       if command[0].size != 2 then
-		    puts "Your command cannot be understood!\n"
-		    return false
-	       elsif opponent == nil then
-		    puts "That player does not exist\n"
-		    return false
-	       elsif @player.mygame.players[opponent].class == nil then
-		    puts "That player does not exist\n"
-		    return false
-	       elsif @player.mygame.players[opponent] == self then
-		    puts "You cannot ask yourself for cards!\n"
-		    return false
-	       elsif @player.hand.select{|c| c.rank == command[0][1]}.size == 0
-		    puts "You cannot ask for a rank which you do not possess!\n"
-		    return false
-	       else
-		    return true
-	       end
-     end
-
      def received(source, number, rank)
 	  print("You received ", number, " ", rank, "s from ", source.name, "!\n")
      end
