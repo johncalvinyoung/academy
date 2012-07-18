@@ -10,3 +10,4 @@ require_relative 'playerui.rb'
      @ui = UserInterface.new
      @ui.start(4)
      @ui.game.play
+     @ui.game.end

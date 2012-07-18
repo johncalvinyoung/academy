@@ -51,6 +51,8 @@ class GoFishGame < Game
 		until end? do
 			@current_player = @current_player.take_turn
 		end
+	end
+	def end
 		winner = score
 	end
 end
