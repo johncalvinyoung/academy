@@ -46,7 +46,6 @@ class OptimumMemoryArray < Object
 
 	def concat other_array
 		s = other_array.size
-		puts s
 		count = 0
 		while count < s do
 			@data << other_array.shift
