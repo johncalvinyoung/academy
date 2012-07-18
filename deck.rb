@@ -10,25 +10,17 @@ class Card
 	end
 
 	  def ==(other)
-	       if other.class == Card then
-		    return self.rank == other.rank && self.suit == other.suit
-	       else
-		    return super == other
-	       end
+	       return self.rank == other.rank && self.suit == other.suit if other.class == Card
+	       return super == other if other.class != Card
 	  end
 
 	  def eql?(other)
-	       if other.class == Card then
-		    return self.rank == other.rank && self.suit == other.suit
-	       else
-		    return super.eql?(other)
-	       end
+	       return self.rank == other.rank && self.suit == other.suit if other.class == Card
+	       return super.eql?(other) if other.class != Card
 	  end
 
-	
 	  def hash
-	       string = rank+suit
-	       return string.hash
+	       return (rank+suit).hash
 	  end
 end
 
