@@ -8,17 +8,17 @@ class GoFishPlayerUI
      end
 
      def is_legal?(command)
-	  opponent = @player.mygame.players.find_index{|p| p.name == command[0][0]}
-	  if command[0].size != 2 then
+	  if command[0] == nil then
 	       puts "Your command cannot be understood!\n"
-	       return false
-	  elsif opponent == nil then
+	       return false end
+	  opponent = @player.mygame.players.find_index{|p| p.name == command[0][0]}
+	  if opponent == nil then
 	       puts "That player does not exist\n"
 	       return false
 	  elsif @player.mygame.players[opponent].class == nil then
 	       puts "That player does not exist\n"
 	       return false
-	  elsif @player.mygame.players[opponent] == self then
+	  elsif @player.mygame.players[opponent] == @player then
 	       puts "You cannot ask yourself for cards!\n"
 	       return false
 	  elsif @player.hand.select{|c| c.rank == command[0][1]}.size == 0

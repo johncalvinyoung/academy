@@ -36,20 +36,17 @@ class GF_Player < Player
 			end
 		end
 		#check for books
-		#check_for_books(rank)
-		if number_of_cards(rank) == 4 then
-	       		@books << Book.new(rank)
-			ui.got_books(rank)
-	       		hand.delete_if{|c| c.rank == rank}
-		end	
+		check_for_books
      		return next_player
 	end
 
-	def check_for_books(rank)
-		if number_of_cards(rank) == 4 then
-	       		@books << Book.new(rank)
-			ui.got_books
-	       		hand.delete_if{|c| c.rank == rank}
+	def check_for_books
+		handrank = hand.group_by(&:rank)
+		#p handrank.select{|r| handrank[r].size == 2}
+		hand.group_by(&:rank).select{|r| handrank[r].size == 4}.each do |bookrank|
+			@books << Book.new(bookrank[0])
+			ui.got_books(bookrank[0])
+	       		hand.delete_if{|c| c.rank == bookrank[0]}
 		end
 	end
 

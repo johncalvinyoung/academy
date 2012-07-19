@@ -44,4 +44,15 @@ class DeckOfCards
 	def shuffle
 		@cards.shuffle!
 	end
+	def add_cards(input)	
+		if input.is_a?(String) then cards_in = input.scan(/\b([2-9JQKA]|10)\w*[-_]*([CDSH])/i)
+		elsif input.is_a?(Card) then cards_in = [input]
+		else cards_in = input end
+		cards_in.each do |c|
+			if c.class == Card then @cards << c else
+				@cards << Card.new(c[0],c[1])
+			end
+		end
+
+	end
 end
