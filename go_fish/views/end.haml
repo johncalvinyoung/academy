@@ -1,0 +1,16 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #title Game Over
+      #subcontent
+        -if @winner.class == Array then
+          There was a tie.<br />
+          -@winner.each do|p|
+            #{p.name} 
+          each had #{@winner[0].books.size} books.<br />
+        -else
+          Winner: #{@winner.name} has #{@winner.books.size} books.<br />        

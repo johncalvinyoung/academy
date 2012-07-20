@@ -1,0 +1,47 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/main.css"}    
+  %body
+  #topbar
+    The Go Fish Game
+  #content
+    #subcontent
+      #player2
+        .name= @game.players[2].name
+        .hand
+          - @game.players[2].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+      #player1
+        .hand
+          - @game.players[1].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+        .name= @game.players[1].name
+      #table
+        #messages= @game.messages
+        - @game.clear_messages
+        %form{"method" => "post", "action" => "/play", "id" => "your_turn"}
+          #{@game.players[0].name}, it's your turn to play!<br />
+          <br />Choose an opponent...<br />
+          - @game.players[0].opponents.each do |o|
+            %input{"type" => "radio", "name" => "opponent", "value" => o.id}
+            #{o.name}
+            %br
+          <br />...and choose a rank to ask for:<br />
+          - @game.players[0].hand.group_by(&:rank).each do |cr|
+            %input{"type" => "radio", "name" => "rank", "value" => "#{cr[0]}"}
+            #{cr[0]}
+            %br
+          %br
+          %input{"type" => "hidden", "name" => "key", "value" => "#{@game.key}"}
+          %input{"type" => "hidden", "name" => "self", "value" => "#{@game.players[0].id}"}
+          %input{"type" => "submit", "value" => "Ask for Cards"}
+      #player3
+        .hand
+          - @game.players[3].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+        .name= @game.players[3].name
+      #player0
+        .hand
+          - @game.players[0].hand.sort!{|a,b| a.rank <=> b.rank}.each do |c|
+            %img{"src" => "/cards/#{c.suit+c.rank}.png"}
+        .name= @game.players[0].name

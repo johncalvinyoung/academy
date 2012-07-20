@@ -1,0 +1,13 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #title Start a game now:
+      #subcontent
+        %form{"method" => "post", "action" => "game"}
+          Your name: 
+          %input{"type" => "text", "name" => "player_name"}
+          %input{"type" => "submit", "value" => "Start Game"}

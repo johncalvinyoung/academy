@@ -1,0 +1,33 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/main.css"}
+    %meta{"HTTP-EQUIV" => "REFRESH", "Content" => "3"}
+  %body
+  #topbar
+    The Go Fish Game
+  #content
+    #subcontent
+      #player2
+        .name= @game.players[2].name
+        .hand
+          - @game.players[2].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+      #player1
+        .hand
+          - @game.players[1].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+        .name= @game.players[1].name
+      #table
+        #messages= @game.messages
+        - @game.clear_messages
+      #player3
+        .hand
+          - @game.players[3].hand.each do |c|
+            %img{"src" => "/cards/back.png"}
+        .name= @game.players[3].name
+      #player0
+        .hand
+          - @game.players[0].hand.sort!{|a,b| a.rank <=> b.rank}.each do |c|
+            %img{"src" => "/cards/#{c.suit+c.rank}.png"}
+        .name 
+          #{@game.players[0].name}

@@ -1,10 +1,12 @@
 class GF_Player < Player
-	attr_accessor :hand, :name, :books, :mygame, :ui
+	attr_reader :id
+	attr_accessor :hand, :name, :books, :mygame, :ui, :decision
 	def initialize(name, game)
 		@hand = []
 		@name = name
 		@books = []
 		@mygame = game
+		@decision = nil
 	end
 
 	def opponents
@@ -19,23 +21,24 @@ class GF_Player < Player
 
 	def take_turn
 		#return ui.take_turn
-		command = ui.ask_for_input
-		next_player = self
+		command = self.decision
+  		next_player = self
 		opponent = command[0]
 		rank = command[1]
 	  	cards = opponent.give(rank)
+		mygame.add_message("#{mygame.current_player.name} asked #{opponent.name} for all his #{rank}s<br \>")		
 	  	if cards != [] then
 			cards.each {|c| hand << c}
-			ui.received(opponent, cards.size, rank)
-	  	else 
+			mygame.add_message("#{mygame.current_player.name} received #{cards.size} #{rank}s from #{opponent.name}<br \>")
+		else 
 	       		card = mygame.deck.draw
 			if card != nil then
-				ui.go_fish(card.rank)
+				mygame.add_message("GO FISH\n")
+				mygame.add_message("#{mygame.current_player.name} drew from the deck.<br \>")
 				hand << card
 				if card.rank != rank then next_player = opponent end
 			end
 		end
-		#check for books
 		check_for_books
      		return next_player
 	end
@@ -45,7 +48,7 @@ class GF_Player < Player
 		#p handrank.select{|r| handrank[r].size == 2}
 		hand.group_by(&:rank).select{|r| handrank[r].size == 4}.each do |bookrank|
 			@books << Book.new(bookrank[0])
-			ui.got_books(bookrank[0])
+			mygame.add_message("#{mygame.current_player.name} got a book of #{bookrank[0]}s<br \>")
 	       		hand.delete_if{|c| c.rank == bookrank[0]}
 		end
 	end
@@ -96,4 +99,8 @@ class GF_Player < Player
 		return hand.size
 		end
 	end
+	def id
+	  mygame.players.find_index(self)
+	end
+
 end

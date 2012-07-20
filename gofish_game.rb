@@ -1,8 +1,10 @@
 class GoFishGame < Game
-	attr_accessor :deck, :players, :current_player, :ui
+	attr_accessor :deck, :players, :current_player, :ui, :key
 	def initialize(names)
 		@deck = DeckOfCards.new
 		@players = names.collect {|name| GF_Player.new(name, self)}
+		@key = ""
+		@messages = ""
 	end
 
 	def deal	
@@ -13,10 +15,10 @@ class GoFishGame < Game
 	def end?
 		scores = @players.collect{|p| p.hand.size}
 		if scores.min == 0 then 
-			ui.game_end(1)
+			add_message("Game over: a player ran out of cards.<br />")
 			return true
 		elsif @deck.number_of_cards == 0 then 
-			ui.game_end(2)
+			add_message("Game over: the deck ran out of cards.<br />")
 			return true
 		else
 			return false
@@ -27,9 +29,9 @@ class GoFishGame < Game
 		win = @players.collect{|p| p.books.size}
 		winner = win.find_index(win.max)
 		if win.count{|s| s==win.max} > 1 then 
-			ui.winner(@players.select{|p| p.books.size == win.max})
+			@players.select{|p| p.books.size == win.max}
 		else 
-			ui.winner(@players[winner])
+			@players[winner]
 		end
 		return @players[winner]
 	end
@@ -38,8 +40,8 @@ class GoFishGame < Game
 		deal
 		last = @players[0].take_turn_backup
 		while end? == false do
-			last = @players[@players.find_index(last)].take_turn_backup
-			end
+		  last = @players[@players.find_index(last)].take_turn_backup
+		end
 		winner = score
 	end
 
@@ -54,5 +56,14 @@ class GoFishGame < Game
 	end
 	def end
 		winner = score
+	end
+	def add_message(msg)
+	  @messages = @messages + msg
+	end
+	def clear_messages
+	  @messages = ""
+	end
+	def messages
+	  return @messages
 	end
 end

@@ -1,0 +1,72 @@
+body {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #777;
+}
+#topbar {
+  width: 98%;
+  height: 35px;
+  background-color: #555;
+  color: #FFF;
+  font-family: "Gill Sans";
+  font-size: 26px;
+  text-align: left;
+  padding-left: 2%;
+}
+#content {
+  width: 820px;
+  position: relative;
+  margin: 0 auto;
+  border: 1px solid black;
+  background-color: #FFF;
+}
+#title {
+  font-size: 60px;
+  font-family: "Gill Sans";
+}
+#messages {
+  width: 100%;
+  height: 70px;
+  background-color: #eee;
+  margin-bottom: 10px;
+}
+#subcontent {
+  width: 800px;
+  margin-top: 10px;
+  margin 0 auto;
+}
+.name {
+  font-size: 20px;
+}
+.hand {
+  margin: 10px;
+}
+#table {
+  width: 390px;
+  height: 400px;
+  float: left;
+  border: 1px solid black
+}
+#player2, #player0 {
+  width: 800px;
+  clear: both;
+}
+#player0 {
+  padding-bottom:30px;
+}
+#player1, #player3 {
+  width: 200px;
+  height: 400px;
+  float: left;
+}
+#player1 .name { float: right; padding-top: 180px; }
+#player3 .name { float: left; padding-top: 180px; }
+.hand img {
+  width: 71px;
+  height: 96px;
+}
+#player0 .hand img, #player2 .hand img { margin-left: -30px; }
+
+#player1 .hand { float: right; width: 100px; margin-top: 60px; }
+#player3 .hand { float: left; width: 100px; margin-top: 60px; }
+#player3 .hand img, #player1 .hand img { margin-top: -50px; }
