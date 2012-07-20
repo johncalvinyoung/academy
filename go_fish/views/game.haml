@@ -1,16 +1,24 @@
+!!! 5
 %html
   %head
     %link{"rel" => "Stylesheet", "href" => "/main.css"}
-    -if @turn == false then
+    - if @turn == false then
       %meta{"HTTP-EQUIV" => "REFRESH", "Content" => "3"}
+    - else
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <script type="text/javascript" src="/turn.js"></script>
   %body
+    %form{"id" => "hidden", "method" => "post", "action" => "/play"}
+      %input{"type" => "hidden", "id" => "hidden_rank", "value" => ""}
+      %input{"type" => "hidden", "id" => "hidden_opponent", "value" => ""}
+      %input{"type" => "hidden", "id" => "key", "value" => "#{@game.key}"}
   #topbar
     %a{"href" => "/game"}= "The Go Fish Game"
     #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"    
   #content
     #subcontent
       #player2.opp
-        .name= @game.players[2].name
+        .name{"data-id" => 2}= @game.players[2].name
         .hand
           - @game.players[2].hand.each do |c|
             %img{"src" => "/cards/back.png"}
@@ -32,7 +40,7 @@
       #player0
         .hand
           - @game.players[0].hand.sort!{|a,b| a <=> b}.each do |c|
-            %img{"src" => "/cards/#{c.suit+c.rank}.png"}
+            %img{"src" => "/cards/#{c.suit+c.rank}.png", "data-rank" => "#{c.rank}"}
         .name 
           #{@game.players[0].name}
           - @turn = false

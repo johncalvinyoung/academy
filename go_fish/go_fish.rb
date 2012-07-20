@@ -20,9 +20,8 @@ class GoFishApp < Sinatra::Base
     @@games
   end
 
+  set :haml, :format => :html5
 
-  before do
-  end
   get '/' do
     haml :index
   end
@@ -32,7 +31,8 @@ class GoFishApp < Sinatra::Base
       @game = @@games[params[:id]]
       if @game.current_player == @game.players[0] then
 	@turn = true
-	haml :game
+	haml :game, :format => :html5
+
       else
 	@game.current_player.decision = robot_decision(@game.current_player)
 	@game.current_player = @game.current_player.take_turn
