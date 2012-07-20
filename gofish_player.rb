@@ -20,7 +20,6 @@ class GF_Player < Player
 	end
 
 	def take_turn
-		#return ui.take_turn
 		command = self.decision
   		next_player = self
 		opponent = command[0]

@@ -46,7 +46,7 @@ class GoFishGame < Game
 	end
 
 	def start
-		@current_player = players.sample
+		@current_player = players[0] #players.sample
 	end
 
 	def play

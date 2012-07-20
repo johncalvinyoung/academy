@@ -4,6 +4,7 @@
   %body
   #topbar
     The Go Fish Game
+    #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"
   #content
     #subcontent
       #player2

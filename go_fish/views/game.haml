@@ -1,18 +1,20 @@
 %html
   %head
     %link{"rel" => "Stylesheet", "href" => "/main.css"}
-    %meta{"HTTP-EQUIV" => "REFRESH", "Content" => "3"}
+    -if @turn == false then
+      %meta{"HTTP-EQUIV" => "REFRESH", "Content" => "3"}
   %body
   #topbar
-    The Go Fish Game
+    %a{"href" => "/game"}= "The Go Fish Game"
+    #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"    
   #content
     #subcontent
-      #player2
+      #player2.opp
         .name= @game.players[2].name
         .hand
           - @game.players[2].hand.each do |c|
             %img{"src" => "/cards/back.png"}
-      #player1
+      #player1.opp
         .hand
           - @game.players[1].hand.each do |c|
             %img{"src" => "/cards/back.png"}
@@ -20,14 +22,17 @@
       #table
         #messages= @game.messages
         - @game.clear_messages
-      #player3
+        - if @turn then
+          =haml :turnsmall
+      #player3.opp
         .hand
           - @game.players[3].hand.each do |c|
             %img{"src" => "/cards/back.png"}
         .name= @game.players[3].name
       #player0
         .hand
-          - @game.players[0].hand.sort!{|a,b| a.rank <=> b.rank}.each do |c|
+          - @game.players[0].hand.sort!{|a,b| a <=> b}.each do |c|
             %img{"src" => "/cards/#{c.suit+c.rank}.png"}
         .name 
           #{@game.players[0].name}
+          - @turn = false

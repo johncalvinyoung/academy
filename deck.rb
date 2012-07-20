@@ -5,7 +5,7 @@ class Card
 		@suit = suit.upcase.slice(0..0)
 	end
 	def value
-		%w(0 2 3 4 5 6 7 8 9 10 J Q K A).index(rank)
+		["2","3","4","5","6","7","8","9","10","J","Q","K","A"].index(rank)
 	end
 
 	  def ==(other)
@@ -20,6 +20,11 @@ class Card
 
 	  def hash
 	       return (rank+suit).hash
+	  end
+	  def <=>other
+	    if self.value == other.value then return 0 end
+	    if self.value > other.value then return 1 end
+	    if self.value < other.value then return -1 end
 	  end
 end
 

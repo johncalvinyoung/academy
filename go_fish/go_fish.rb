@@ -31,14 +31,15 @@ class GoFishApp < Sinatra::Base
     if @@games[params[:id]].class != GoFishGame then redirect '/' end
       @game = @@games[params[:id]]
       if @game.current_player == @game.players[0] then
-	p "halp1"
-	haml :turn
+	@turn = true
+	haml :game
       else
 	@game.current_player.decision = robot_decision(@game.current_player)
 	@game.current_player = @game.current_player.take_turn
 	if @game.end? then
-	  redirect '/end/'+@params['key']
+	  redirect '/end/'+@params[:id]
 	else
+	  @turn = false
 	  haml :game
 	end
       end
@@ -56,6 +57,7 @@ class GoFishApp < Sinatra::Base
 
   post '/play' do
     @game = @@games[@params['key']]
+    if @params['opponent'] == nil || @params['rank'] == nil then redirect '/turn/'+@params['key'] end
     o_id = Integer(@params['opponent'])
     opponent = @game.players[o_id]
     rank = @params['rank']
@@ -74,7 +76,7 @@ class GoFishApp < Sinatra::Base
   end
 
   get '/end/:id' do
-    @game = @@games[@params['key']]
+    @game = @@games[@params[:id]]
     @winner = @game.score
     haml :end
   end
