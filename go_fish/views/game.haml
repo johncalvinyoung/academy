@@ -9,38 +9,38 @@
       <script type="text/javascript" src="/turn.js"></script>
   %body
     %form{"id" => "hidden", "method" => "post", "action" => "/play"}
-      %input{"type" => "hidden", "id" => "hidden_rank", "value" => ""}
-      %input{"type" => "hidden", "id" => "hidden_opponent", "value" => ""}
-      %input{"type" => "hidden", "id" => "key", "value" => "#{@game.key}"}
-  #topbar
-    %a{"href" => "/game"}= "The Go Fish Game"
-    #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"    
-  #content
-    #subcontent
-      #player2.opp
-        .name{"data-id" => 2}= @game.players[2].name
-        .hand
-          - @game.players[2].hand.each do |c|
-            %img{"src" => "/cards/back.png"}
-      #player1.opp
-        .hand
-          - @game.players[1].hand.each do |c|
-            %img{"src" => "/cards/back.png"}
-        .name= @game.players[1].name
-      #table
-        #messages= @game.messages
-        - @game.clear_messages
-        - if @turn then
-          =haml :turnsmall
-      #player3.opp
-        .hand
-          - @game.players[3].hand.each do |c|
-            %img{"src" => "/cards/back.png"}
-        .name= @game.players[3].name
-      #player0
-        .hand
-          - @game.players[0].hand.sort!{|a,b| a <=> b}.each do |c|
-            %img{"src" => "/cards/#{c.suit+c.rank}.png", "data-rank" => "#{c.rank}"}
-        .name 
-          #{@game.players[0].name}
-          - @turn = false
+      %input{"type" => "hidden", "id" => "hidden_rank", "name" => "rank", "value" => "none"}
+      %input{"type" => "hidden", "id" => "hidden_opponent", "name" => "opponent", "value" => "none"}
+      %input{"type" => "hidden", "name" => "key", "value" => "#{@game.key}"}
+    #topbar
+      %a{"href" => "/game"}= "The Go Fish Game"
+      #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"    
+    #content
+      #subcontent
+        #player2.opp
+          .name{"data-id" => 2}= @game.players[2].name
+          .hand
+            - @game.players[2].hand.each do |c|
+              %img{"src" => "/cards/back.png"}
+        #player1.opp
+          .hand
+            - @game.players[1].hand.each do |c|
+              %img{"src" => "/cards/back.png"}
+          .name{"data-id" => 1}= @game.players[1].name
+        #table
+          #messages= @game.messages
+          - @game.clear_messages
+          - if @turn then
+            =haml :turnsmall
+        #player3.opp
+          .hand
+            - @game.players[3].hand.each do |c|
+              %img{"src" => "/cards/back.png"}
+          .name{"data-id" => 3}= @game.players[3].name
+        #player0
+          .hand
+            - @game.players[0].hand.sort!{|a,b| a <=> b}.each do |c|
+              %img{"src" => "/cards/#{c.suit+c.rank}.png", "data-rank" => "#{c.rank}"}
+          .name 
+            #{@game.players[0].name}
+            - @turn = false

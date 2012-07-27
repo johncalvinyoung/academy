@@ -1,16 +1,2 @@
-%form{"method" => "post", "action" => "/play", "id" => "your_turn"}
-  #{@game.players[0].name}, it's your turn to play!<br />
-  <br />Choose an opponent...<br />
-  - @game.players[0].opponents.each do |o|
-    %input{"type" => "radio", "name" => "opponent", "value" => o.id}
-    %label= o.name
-    %br
-  <br />...and choose a rank to ask for:<br />
-  - @game.players[0].hand.sort!{|a,b| a <=> b}.group_by(&:rank).each do |cr|
-    %input{"type" => "radio", "name" => "rank", "value" => "#{cr[0]}"}
-    %label= cr[0]
-    %br
-  %br
-  %input{"type" => "hidden", "name" => "key", "value" => "#{@game.key}"}
-  %input{"type" => "hidden", "name" => "self", "value" => "#{@game.players[0].id}"}
-  %input{"type" => "submit", "value" => "Ask for Cards"}
+#{@game.players[0].name}, it's your turn to play!<br />
+Choose a card in your hand, and click on an opponent's name to ask them for that rank.
