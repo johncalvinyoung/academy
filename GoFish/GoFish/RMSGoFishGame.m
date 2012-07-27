@@ -66,16 +66,9 @@
     for (RMSGoFishPlayer *player in self.players) {
         [scores addObject:[NSNumber numberWithInt:player.books.count]];
     }
-    __block NSUInteger winnerIndex = (NSUInteger)0;
-    __block NSNumber *winnerScore = [NSNumber numberWithFloat:0];
-    [scores enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
-        NSNumber *newValue = obj;
-        if (newValue > winnerScore) {
-            winnerScore = newValue;
-            winnerIndex = idx;
-        }
-    }];
-    return [self.players objectAtIndex:winnerIndex];
+    int max = [[scores valueForKeyPath:@"@max.intValue"] intValue];
+    NSUInteger who = [scores indexOfObject:[NSNumber numberWithInt:max]];
+    return [self.players objectAtIndex:who];
 }
 
 - (void)gameLoop {
