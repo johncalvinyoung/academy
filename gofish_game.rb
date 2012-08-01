@@ -1,5 +1,5 @@
 class GoFishGame < Game
-	attr_accessor :deck, :players, :current_player, :ui, :key
+	attr_accessor :deck, :players, :current_player, :ui, :key, :messages
 	def initialize(names)
 		@deck = DeckOfCards.new
 		@players = names.collect {|name| GF_Player.new(name, self)}
@@ -65,5 +65,41 @@ class GoFishGame < Game
 	end
 	def messages
 	  return @messages
+	end
+
+	def as_json
+	  playersarray = []
+	  @players.each do |player|
+	    playersarray << player.as_json
+	  end
+	  return {"deck" => @deck.as_json, "players" => playersarray, "current_player" => @current_player.as_json, "key" => @key, "messages" => @messages}
+	end
+	def to_json
+	  return self.as_json.to_json
+	end
+
+	def self.from_json json_string
+	  hash = JSON.parse json_string
+	  @game = GoFishGame.new([hash["players"][0]["name"],hash["players"][1]["name"],hash["players"][2]["name"],hash["players"][3]["name"]])
+	  @game.deck.cards = []
+	  hash["deck"]["cards"].each do |card|
+	    @game.deck.cards << Card.new(card["rank"],card["suit"])
+	  end
+	  hash["players"].each do |saved_player|
+	    player = GF_Player.new(saved_player["name"],@game)
+	    saved_player["hand"].each do |card|
+	      player.hand << Card.new(card["rank"],card["suit"])
+	    end
+	    player.name = saved_player["name"]
+	    saved_player["books"].each do |book|
+	      player.books << Book.new(book)
+	    end
+	    @game.players << player
+	  end
+	  current_player_index = @game.players.find_index{|p| p.name == hash["current_player"]["name"] && p.books.size == hash["current_player"]["books"].size}
+	  @game.current_player = @game.players[current_player_index]
+	  @game.key = hash["key"]
+	  @game.messages = hash["messages"]
+	  return @game
 	end
 end

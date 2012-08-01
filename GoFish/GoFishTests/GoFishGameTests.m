@@ -60,10 +60,12 @@
     [[player2 emptyHand] addObject: [RMSPlayingCard createRank:@"3"suit:@"S"]];
     game.currentPlayer = player1;
     [player1 setDecision: [NSArray arrayWithObjects:player2, @"J",nil]];
+    game.deck.cards = [NSMutableArray new];
+    [game.deck.cards addObject:[RMSPlayingCard createRank:@"2"suit:@"H"]];
     [player1 takeTurn];
     STAssertEquals([player2.hand count], (NSUInteger)1, @"Player 2 has too many cards.");
     STAssertEquals([player1.hand count], (NSUInteger)4, @"Player 1 has too many cards.");
-    STAssertEquals([game.deck.cards count], (NSUInteger)31, @"Player 1 didn't score out his books correctly.");
+    STAssertEquals([game.deck.cards count], (NSUInteger)0, @"Player 1 didn't score out his books correctly.");
 }
 
 - (void)testEndConditionsDeck {

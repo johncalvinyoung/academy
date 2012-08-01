@@ -77,23 +77,35 @@
     RMSGoFishPlayer *nextPlayer = self;
     RMSGoFishPlayer *opponent = [self.decision objectAtIndex:(NSUInteger)0];
     NSString *rank = [self.decision objectAtIndex:(NSUInteger)1];
+    NSLog(@"Target: %@", opponent.name);
+    NSLog(@"%@", rank);
     NSArray *cards = [opponent giveCard:rank];
     if([cards lastObject]) {
         [self.hand addObjectsFromArray:cards];
+        NSLog(@"Received from opponent");
+        [[cards objectAtIndex:(NSUInteger)0] rank];
+        NSLog(@"R: %@%@",[[cards objectAtIndex:(NSUInteger)0] rank],[[cards objectAtIndex:(NSUInteger)0] suit]);
+        //NSLog(@"S: %@",[[cards objectAtIndex:(NSUInteger)0] suit]);
+
     } else {
         RMSPlayingCard *card = [self.delegate goFish];
         if(card.rank != @"0") {
             [self.hand addObject: card];
+            NSLog(@"Received from deck");
+            NSLog(@"R: %@%@",[card rank], [card suit]);
+            //NSLog(@"%@",[card suit]);
+
         }
         if(![card.rank isEqualToString:rank]) {
+            //[self.delegate set_CurrentPlayer: opponent];
+            nextPlayer = opponent;
             NSLog(@"%@",nextPlayer.name);
-            [self.delegate set_CurrentPlayer: opponent];
         }
     }
-    NSLog(@"Checkforbooks");
+#warning if next line uncommented, play forced to progress regardless of successful play
+    //nextPlayer = opponent;
     [self checkForBooks];
-    self.decision = [NSMutableArray new];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RMSGoFishGameTurnEndNotification" object:self];
+    //self.decision = [NSMutableArray new];
     return nextPlayer;
 }
 

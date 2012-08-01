@@ -101,5 +101,20 @@ class GF_Player < Player
 	def id
 	  mygame.players.find_index(self)
 	end
+	
+	def as_json
+	  handarray = []
+	  @hand.each do |card|
+	    handarray << card.as_json
+	  end
+	  booksarray = []
+	  @books.each do |book|
+	    booksarray << book.as_json
+	  end
+	  return {"hand" => handarray, "name" => @name, "books" => booksarray}
+	end
 
+	def to_json
+	  self.as_json.to_json
+	end
 end

@@ -23,11 +23,11 @@
     
     NSArray *displaySortedHand = (NSMutableArray *)[self.game.currentPlayer.hand sortedArrayUsingSelector:@selector(compare:)];
     NSInteger rank = [self.pickerView selectedRowInComponent:1];
-    NSInteger opponent = [self.pickerView selectedRowInComponent:0];
+    NSInteger opponent = [self.pickerView selectedRowInComponent:0] + 1;
     NSString *choiceRank = [[displaySortedHand objectAtIndex:(NSInteger)rank] rank];
     [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self.delegate receiveHumanInputName:(NSUInteger)opponent rank:(NSString *)choiceRank];
-    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

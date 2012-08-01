@@ -26,6 +26,14 @@ class Card
 	    if self.value > other.value then return 1 end
 	    if self.value < other.value then return -1 end
 	  end
+
+	  def as_json
+	    return {"rank" => @rank, "suit" => @suit}
+	  end
+
+	  def to_json
+	    self.as_json.to_json
+	  end
 end
 
 class DeckOfCards
@@ -58,6 +66,15 @@ class DeckOfCards
 				@cards << Card.new(c[0],c[1])
 			end
 		end
-
+	end
+	def as_json
+	  cardarray = []
+	  @cards.each do |card|
+	    cardarray << card.as_json
+	  end
+	  hash = {"cards" => cardarray}
+	end
+	def to_json
+	  self.as_json.to_json
 	end
 end

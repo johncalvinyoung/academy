@@ -15,3 +15,6 @@
 @property (strong, nonatomic) RMSViewController *delegate;
 
 @end
+@protocol RMSTurnDelegate <NSObject>
+- (void)receiveHumanInputName:(NSUInteger)opponent rank:(NSString *)rank;
+@end
