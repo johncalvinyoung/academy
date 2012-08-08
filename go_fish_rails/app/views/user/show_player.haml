@@ -1,0 +1,20 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/assets/main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #subcontent
+        #banner="User Profile: #{@user.name}"
+        - if(@user.games.size > 0) then
+          #{@user.name} has played #{@user.count_games} games before now.
+          #{@user.name} has won #{@user.count_wins} games. (#{@user.percentage_wins.round(2).to_s}%)
+          .stats
+            Full Stats:<br />
+            <table><tr><td>Wins</td><td>Losses</td><td>Ties</td><td>High Score</td></tr>
+            <tr><td>#{@user.count_wins}</td><td>#{@user.count_losses}</td><td>#{@user.count_ties}</td><td>#{@user.high_score}</td></tr>
+            </table>
+        - else
+          #{@user.name} hasn't played any games.
+

@@ -1,0 +1,19 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #banner=flash[:notice]
+      #subcontent
+        =form_for @user do |u|
+          #{u.label :name}: #{u.text_field :name}<br />
+          #{u.label :email}: #{u.text_field :email}<br />
+          =fields_for @address do |a|
+            #{a.label :street}: #{a.text_field :street}<br />
+            #{a.label :city}: #{a.text_field :city}<br />
+            #{a.label :state}: #{a.text_field :state}<br />
+            #{a.label :zip}: #{a.text_field :zip}<br />
+          #{u.submit}
+          

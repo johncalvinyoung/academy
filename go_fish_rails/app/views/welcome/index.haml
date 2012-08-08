@@ -1,0 +1,36 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #title 
+        Do you want to play Go Fish?
+        %br
+        Register or log in below to play!
+      #banner=flash[:notice]        
+      #subcontent
+        %form{"method" => "post", "action" => "/player/new", "class" => "split"}
+          %input{"type" => "hidden", "name" => "state", "value" => "register"}
+          Your Name: 
+          %input{"type" => "text", "name" => "user[name]"}
+          %br
+          Username:
+          %input{"type" => "text", "name" => "user[username]"}
+          %br
+          Password:
+          %input{"type" => "password", "name" => "user[password]"}
+          %br
+          %input{"type" => "submit", "value" => "Register"}
+          %br    
+        %form{"method" => "post", "action" => "player", "class" => "split"}
+          %input{"type" => "hidden", "name" => "state", "value" => "login"}
+          Log in with your username:
+          %input{"type" => "text", "name" => "user[username]"}
+          %br          
+          Password:
+          %input{"type" => "password", "name" => "user[password]"}
+          %br          
+          %input{"type" => "submit", "value" => "Log In"}
+      #footer all content copyright 2012 John Calvin Young

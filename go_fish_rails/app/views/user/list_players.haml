@@ -1,0 +1,19 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/assets/main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #subcontent
+        #banner="User List"
+        %table{"class" => "stats", "style" => "width: 350px"}
+          <tr><td>Name</td><td>Wins</td><td>Losses</td><td>Ties</td><td>High Score</td></tr>
+          - @users.each do |user| 
+            - @user = user
+            %tr
+              %td=@user.name
+              %td=@user.count_wins
+              %td=@user.count_losses
+              %td=@user.count_ties
+              %td=@user.high_score

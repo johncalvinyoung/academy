@@ -1,0 +1,43 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/assets/main.css"}
+  %body
+    #topbar
+      The Go Fish Game
+    #content
+      #banner= flash[:notice]
+      #subcontent
+        - if(@user.games.size > 0) then
+          #banner="Welcome back, #{@user.name}!"
+          You've played #{@user.count_games} games before.
+          You've won #{@user.count_wins} games. (#{@user.percentage_wins.round(2).to_s}%)<br />
+          .stats
+            Full Stats:<br />
+            <table><tr><td>Wins</td><td>Losses</td><td>Ties</td><td>High Score</td></tr>
+            <tr><td>#{@user.count_wins}</td><td>#{@user.count_losses}</td><td>#{@user.count_ties}</td><td>#{@user.high_score}</td></tr>
+            </table>
+          - if @games != [] then
+            Resume Previous Games:
+            %table{"class" => "stats", "style" => "width: 400px"}
+              %tr
+                %th="Current Score"
+                %th="Last Updated"
+                %th="Resume?"
+              - @games.each do |result|
+                %tr
+                  %td=result.game.players[0].books.size
+                  %td=result.updated_at
+                  %td
+                    %a{"href" => "/game/#{result.id}"}
+                      resume game
+        - else
+          #banner="Welcome, #{@user.name}!"
+          .stats
+            You haven't played any games.
+        %form{"method" => "post", "action" => "/game", "id" => "form"}    
+          <br />Would you like to start a new game?
+          %input{"type" => "hidden", "name" => "player_name", "id" => "player_name", "value" => @user.name}
+          %input{"type" => "submit", "value" => "Start Game"}
+        %br
+        %a{"href" => "/player/#{@user.id}/edit"}
+          Edit Profile
