@@ -181,7 +181,7 @@ class GoFishApp < Sinatra::Base
   end
 
   def update_player_stats(player)
-    report = [@player.books.size, (@player == @winner)]
+    report = [@player.books.size, (@player == @winner), @game.to_json]
     db = settings.mongo_db["player_records"]
     record = db.find("name" => @player.name).to_a[0]
     record["games"] << report
