@@ -34,10 +34,9 @@
           #banner="Welcome, #{@user.name}!"
           .stats
             You haven't played any games.
-        %form{"method" => "post", "action" => "/game", "id" => "form"}    
+        %form{"method" => "post", "action" => "/game/new", "id" => "form"}
+          =token_tag nil
           <br />Would you like to start a new game?
-          %input{"type" => "hidden", "name" => "player_name", "id" => "player_name", "value" => @user.name}
-          %input{"type" => "submit", "value" => "Start Game"}
-        %br
-        %a{"href" => "/player/#{@user.id}/edit"}
-          Edit Profile
+          %input{"type"=>"submit", "value" => "Start"}
+        %a{"href" => address_path}="Edit Profile"
+

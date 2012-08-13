@@ -40,7 +40,7 @@ class GoFishGame < Game
 		else 
 			@players[winner]
 		end
-		return @players[winner]
+		#return @players[winner]
 	end
 
 	def play_full_game

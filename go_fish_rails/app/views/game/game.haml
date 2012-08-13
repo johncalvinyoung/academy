@@ -9,11 +9,12 @@
       <script type="text/javascript" src="/turn.js"></script>
   %body
     %form{"id" => "hidden", "method" => "post", "action" => "play"}
+      =token_tag nil
       %input{"type" => "hidden", "id" => "hidden_rank", "name" => "rank", "value" => "none"}
       %input{"type" => "hidden", "id" => "hidden_opponent", "name" => "opponent", "value" => "none"}
       %input{"type" => "hidden", "name" => "id", "value" => "#{@game_result.id}"}
     #topbar
-      %a{"href" => "/"}= "The Go Fish Game"
+      %a{"href" => player_path}= "The Go Fish Game"
       #indicators= "Deck: #{@game.deck.number_of_cards} cards remaining. Books: #{@game.players[0].books.size}"    
     #content
       #subcontent

@@ -11,5 +11,16 @@ require 'spec_helper'
 #   end
 # end
 describe GameHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+	it "should retrieve messages from a game in progress" do
+		@user = FactoryGirl.create(:returning_user)
+		@game_result = @user.results.first
+		@game = @user.results.first.game
+		@game.deal
+		@game.start
+		@player = @game.players.first
+		@player.mygame = @game
+		@player.decision = [@game.players[2], @player.hand.first.rank]
+		@player.take_turn
+		dequeue_messages.should_not be_nil
+	end
 end

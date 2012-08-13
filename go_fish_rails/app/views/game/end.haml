@@ -3,14 +3,14 @@
     %link{"rel" => "Stylesheet", "href" => "/main.css"}
   %body
     #topbar
-      %a{"href" => "/player/"+@game_result.user.id.to_s+"/play"}= "The Go Fish Game"
+      %a{"href" => play_url}= "The Go Fish Game"
     #content
       #title Game Over
       #subcontent
         -if @winner.class == Array then
           There was a tie.<br />
           -@winner.each do|p|
-            #{p.name} 
+            #{p.name+", "}  
           each had #{@winner[0].books.size} books.<br />
         -else
           Winner: #{@winner.name} has #{@winner.books.size} books.<br />

@@ -3,7 +3,7 @@
     %link{"rel" => "Stylesheet", "href" => "/assets/main.css"}
   %body
     #topbar
-      The Go Fish Game
+      %a{"href" => player_path}= "The Go Fish Game"
     #content
       #subcontent
         #banner="User Profile: #{@user.name}"

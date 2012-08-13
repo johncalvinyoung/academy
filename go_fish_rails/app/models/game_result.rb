@@ -16,18 +16,6 @@ class GameResult < ActiveRecord::Base
   
   serialize :game
 
-  def save_state id
-    record = GameResult.find(id)
-    p record
-    record.game = @game
-    return record.handle
-  end
-
-  def retrieve_state id
-    result = GameResult.find(id)
-    return result.game
-  end
-
   def unique_id
     return ('a'..'z').to_a.shuffle[0,8].join
   end

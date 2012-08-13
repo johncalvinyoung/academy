@@ -21,9 +21,10 @@ describe GameResult do
     key = unique_id
     
     @game_result = GameResult.create
-    @game_result.save_state @game_result.id
-    retrieved_game = @game_result.retrieve_state @game_result.id
-    assert_equal(retrieved_game, @game)
+    @game_result.game = @game
+    @game_result.save
+    retrieved_game = @game_result.game
+    assert_equal(retrieved_game.deck.cards, @game.deck.cards)
   end
 
 

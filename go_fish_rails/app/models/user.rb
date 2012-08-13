@@ -1,5 +1,3 @@
-require 'bcrypt'
-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -8,11 +6,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :address, :username, :token, :token_expires_at
-  has_many :results, :class_name => 'GameResult'
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :address
+  # attr_accessible :title, :body
+	has_many :results, :class_name => 'GameResult'
   has_one :address
-  validates :name, :presence => true
-  validates :username, :uniqueness => true
+  #validates :name, :presence => true
+  #validates :username, :uniqueness => true
   
   def games
     results.map(&:game)
@@ -50,15 +49,6 @@ class User < ActiveRecord::Base
 	games = count_games
 	wins = count_wins
 	return wins.fdiv(games)*100
-  end
-
-  def password
-      @password ||= BCrypt::Password.new(password_hash)
-  end
-
-  def password=(new_password)
-	  @password = BCrypt::Password.create(new_password)
-	  self.password_hash = @password
   end
 
 end

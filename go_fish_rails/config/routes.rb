@@ -1,5 +1,15 @@
 GoFishRails::Application.routes.draw do
-  devise_for :users, :controllers => { :sessions => 'sessions' }
+
+	get 'users' => 'player#list'
+	
+  devise_for :users
+
+	get 'play' => 'player#play', :as => :play
+	get 'player/edit' => 'player#edit', :as => :address
+	put 'player/update' => 'player#update', :as => :update
+	get 'player/:id' => 'player#show', :as => :profile
+	get 'player' => 'player#play'
+	get 'players' => 'player#list'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -8,22 +18,22 @@ GoFishRails::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
-  get 'player/:id/play' => 'user#play', :as => :play
-  get 'player/:id/edit' => 'user#edit', :as => :edit
-  get 'player/:id' => 'user#show', :as => :user
-  put 'player/:id' => 'user#update'
-  post 'player/new' => 'user#register'
-  post 'player/:id' => 'user#update'
-  post 'player' => 'user#checkpoint'
+  #get 'player/:id/play' => 'user#play', :as => :play
+  #get 'player/:id/edit' => 'user#edit', :as => :edit
+  #get 'player/:id' => 'user#show', :as => :user
+  #put 'player/:id' => 'user#update'
+  #post 'player/new' => 'user#register'
+  #post 'player/:id' => 'user#update'
+  #post 'player' => 'user#checkpoint'
   #put 'player/:id/update' => 'user#update', :as => :user
-  get 'players' => 'user#list'
-  get 'player/:id/reset' => 'user#reset'
-  get 'player/:id/reset/:token' => 'user#reset'
+  #get 'players' => 'user#list'
+  #get 'player/:id/reset' => 'user#reset'
+  #get 'player/:id/reset/:token' => 'user#reset'
 
-  get 'game/end/:id' => 'game#endgame', :as => :end
+	get 'game/:id/end' => 'game#endgame', :as => :end
+  post 'game/new' => 'game#new'	
   get 'game/:id' => 'game#display', :as => :game
   post 'game/play' => 'game#play'
-  post 'game' => 'game#new'
   
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

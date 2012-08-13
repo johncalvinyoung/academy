@@ -11,26 +11,32 @@
         Register or log in below to play!
       #banner=flash[:notice]        
       #subcontent
-        %form{"method" => "post", "action" => "/player/new", "class" => "split"}
-          %input{"type" => "hidden", "name" => "state", "value" => "register"}
+        %form{"method" => "post", "action" => "/users", "class" => "split", "id" => "register_form"}
+          =token_tag nil
           Your Name: 
           %input{"type" => "text", "name" => "user[name]"}
           %br
-          Username:
-          %input{"type" => "text", "name" => "user[username]"}
+          Email:
+          %input{"type" => "text", "name" => "user[email]"}
           %br
           Password:
           %input{"type" => "password", "name" => "user[password]"}
+          %br
+          Password (again):
+          %input{"type" => "password", "name" => "user[password_confirmation]"}
           %br
           %input{"type" => "submit", "value" => "Register"}
           %br    
-        %form{"method" => "post", "action" => "player", "class" => "split"}
-          %input{"type" => "hidden", "name" => "state", "value" => "login"}
-          Log in with your username:
-          %input{"type" => "text", "name" => "user[username]"}
+        %form{"method" => "post", "action" => "/users/sign_in", "class" => "split", "id" => "login_form"}
+          =token_tag nil
+          Log in with your email address:
+          %input{"type" => "text", "name" => "user[email]"}
           %br          
           Password:
           %input{"type" => "password", "name" => "user[password]"}
-          %br          
+          %br
+          Remember me?: 
+          %input{"type" => "checkbox", "name" => "user[remember_me]"}
+          %br
           %input{"type" => "submit", "value" => "Log In"}
       #footer all content copyright 2012 John Calvin Young

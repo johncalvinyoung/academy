@@ -1,5 +1,7 @@
 class GameController < ApplicationController
 
+	before_filter :authenticate_user!
+
   def display
     @game_result = GameResult.find(params[:id])
     @game = @game_result.game
@@ -24,7 +26,8 @@ class GameController < ApplicationController
 
 
   def new
-    @user = User.find_or_create_by_name(params["player_name"])
+    #@user = User.find_or_create_by_name(params["player_name"])
+		@user = current_user
     @game_result = @user.results.build(:game => GoFishGame.new([@user.name,"Susanna","Beth","Richard"]))
     @game = @game_result.game
     @game.deal
