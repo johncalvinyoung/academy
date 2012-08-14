@@ -1,0 +1,22 @@
+/*GoFishGame = function GoFishGame(names){
+	this.deck = new DeckOfCards();
+	this.players = new Array();
+	this.currentPlayer;
+	for(var i in names) {
+		this.players.push(new GoFishPlayer(names[i]));
+	}
+}*/
+
+/*GoFishGame.prototype = {
+	deal: function(){
+		this.deck.shuffle();
+		for(var i=0; i<this.players.length; i++){
+			for(var j=0; j<5; j++){
+				this.players[i].hand.push(this.deck.draw());
+			}
+		}
+	},
+	start: function(){
+		this.currentPlayer = this.players[0];
+	}
+}*/

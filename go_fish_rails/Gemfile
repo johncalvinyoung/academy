@@ -48,6 +48,9 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'jasmine'
+  gem 'coffee-rails', '~> 3.2.1'
+	gem 'rack-asset-compiler'
 end
 
 group :test do

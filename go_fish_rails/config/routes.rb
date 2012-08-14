@@ -31,7 +31,8 @@ GoFishRails::Application.routes.draw do
   #get 'player/:id/reset/:token' => 'user#reset'
 
 	get 'game/:id/end' => 'game#endgame', :as => :end
-  post 'game/new' => 'game#new'	
+  post 'game/new' => 'game#new'
+	get 'game/multi' => 'game#multi'
   get 'game/:id' => 'game#display', :as => :game
   post 'game/play' => 'game#play'
   

@@ -1,0 +1,37 @@
+describe("Go Fish Game", function() {
+	var game;
+
+	beforeEach(function(){
+		game = new GoFishGame(["John","Susanna","Simon","Rosie"]);
+	});
+
+	it("has players", function(){
+		expect(game.players.length==4).toBe(true);
+		expect(game.players[0] instanceof GoFishPlayer).toBe(true);
+	});
+
+	it("has a deck", function(){
+		expect(game.deck instanceof DeckOfCards).toBe(true);
+	});
+
+	it("deals cards to players", function(){
+		game.deal();
+		expect(game.players[0].hand.length).toBe(5);
+		expect(game.deck.numberOfCards()).toBe(32);
+	});
+
+	it("sets the current player upon command", function(){
+		game.deal();
+		game.start();
+		expect(game.currentPlayer == game.players[0]).toBe(true);
+	});
+
+	it("returns the winning player upon command", function(){
+		game.deal();
+		game.start();
+		game.players[0].books.push(new Book("Q"));
+		game.players[0].hand = [];
+		var winner = game.score();
+		expect(winner==game.currentPlayer).toBe(true);
+	});
+});
