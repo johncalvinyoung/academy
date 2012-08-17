@@ -2,9 +2,10 @@ window.GoFishGame = class GoFishGame
 	constructor: (names) ->
 		@deck = new DeckOfCards()
 		@players = new Array()
+		@messages = ""
 		@currentPlayer
 		for name in names
-			@players.push(new GoFishPlayer(name))
+			@players.push(new GoFishPlayer(name, this))
 		
 	deal: ->
 		@deck.shuffle()
@@ -22,4 +23,19 @@ window.GoFishGame = class GoFishGame
 			return @players.filter((p) -> p.books.length == maxScore)
 		else
 			return @players[scores.indexOf(maxScore)]
-		
+	end: ->
+		for player in @players
+			if player.hand.length == 0
+				return true
+		if @deck.numberOfCards() == 0
+			return true
+		else
+			return false
+	addMessage: (message) ->
+		console.log(message)
+		@messages += message+"\n"
+	checkMessages: ->
+		message = @messages
+		@messages = ""
+		return message
+

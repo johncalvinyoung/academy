@@ -1,6 +1,8 @@
 GoFishRails::Application.routes.draw do
 
 	get 'users' => 'player#list'
+	get 'canvas' => 'welcome#canvas'
+	post 'drawing', :to => 'welcome#drawing'
 	
   devise_for :users
 

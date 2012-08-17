@@ -18,6 +18,20 @@ describe "Go Fish Game", ->
 		@game.start()
 		expect(@game.currentPlayer == @game.players[0]).toBe(true)
 
+	it "stores messages", ->
+		@game.deal()
+		@game.start()
+		@game.addMessage("GAME OVER")
+		expect(@game.messages=="").toBe(false)
+
+	it "retrieves messages and wipes the message queue", ->
+		@game.deal()
+		@game.start()
+		@game.addMessage("GO FISH")
+		message = @game.checkMessages()
+		expect(message=="").toBe(false)
+		expect(@game.messages=="").toBe(true)
+
 describe "scoring", ->
 	beforeEach ->
 		@game = new GoFishGame(["John","Susanna","Simon","Rosie"])
@@ -35,3 +49,20 @@ describe "scoring", ->
 		winner = @game.score()
 		expect(winner[0] == @game.players[1]).toBe(true)
 		expect(winner[1] == @game.players[3]).toBe(true)
+
+describe "ending", ->
+	beforeEach ->
+		@game = new GoFishGame(["John","Susanna","Simon","Rosie"])
+		@game.deal()
+		@game.start()
+
+	it "will not detect an end on a game that's still in progress", ->
+		expect(@game.end()).toBe(false)
+
+	it "will return true if the deck is empty", ->
+		@game.deck.cards = []
+		expect(@game.end()).toBe(true)
+
+	it "will return true if any player's hand is empty", ->
+		@game.players[2].hand = []
+		expect(@game.end()).toBe(true)

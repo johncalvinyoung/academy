@@ -1,0 +1,16 @@
+%html
+  %head
+    %link{"rel" => "Stylesheet", "href" => "/assets/main.css"}
+  %body
+    - @cards.each do |card|
+      %img{"src" => "./assets/cards/#{card}.png", "id"=>"#{card}", "style" => "display: none;"}
+    #topbar
+      The Go Fish Game
+    #content
+      #title 
+        Do you want to play Go Fish?
+        %br
+      #banner=flash[:notice]        
+      #subcontent 
+        %canvas#drawing{width: "800px", height: "600px", data: {save: '/drawing'}}
+

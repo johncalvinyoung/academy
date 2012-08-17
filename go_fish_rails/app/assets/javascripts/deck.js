@@ -8,6 +8,10 @@ function PlayingCard(rank,suit) {
 PlayingCard.prototype = {
 	toString: function() {
 		return "[object PlayingCard: "+this.rank()+this.suit()+"]";
+	},
+	value: function() {
+		var ranks = ["2","3","4","5","6","7","8","9","10","J", "Q", "K", "A"];
+		return 2+ranks.indexOf(this.rank());
 	}
 }
 
